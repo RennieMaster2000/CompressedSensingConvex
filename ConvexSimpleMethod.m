@@ -1,6 +1,18 @@
-L=1/2;
+L=1;
 b = [0.1, 0.5,-1,0];
-g = gfunc(b)
-alpha = alphafunc(0,L)
 
+fbest = ffunc(b)
+xbest = b
+xold = b
+for n = 0:9
+    xnew = ituncon(xold,n,L);
+    fnew = ffunc(xnew);
+    if fnew<fbest
+        xbest = xnew;
+        fbest = fnew;
+    end
+    xold=xnew
+end
+fbest
+xbest
 
