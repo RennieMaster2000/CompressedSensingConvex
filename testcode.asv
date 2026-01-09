@@ -4,7 +4,7 @@ z = zeros(size(x));
 %[A, b] = elimemptyrows(F_us,X_us);
 A = F_us;
 b = X_us;
-zcons = project_to_affine(A,b,z);
+zcons = projAx_b(z,A,b);
 y = A*zcons-b;
 sum(abs(y),"all")
 
