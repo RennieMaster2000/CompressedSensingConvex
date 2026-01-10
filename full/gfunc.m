@@ -14,6 +14,9 @@ for i = 1:length(g)
         %look at -0.5 (jittery) and 1 (smooth)
         %or does that jitter not matter much?
         %i do notice with -0.5, despite jitter it converges slighty faster?
+        %but also does always goes to set max iterations (tolerance wont work
+        %due to viotile behaviour), (when g=1 tolerance do get reached, and stops
+        %iterations before set max iterations)
     end
 end
 end
