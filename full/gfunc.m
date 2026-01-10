@@ -12,6 +12,8 @@ for i = 1:length(g)
         % 1^T*x, x >= 0 -> derivate is '1' for x => 0, thus x > 0 and x = 0
         %Additionally look at convergence plot 
         %look at -0.5 (jittery) and 1 (smooth)
+        %or does that jitter not matter much?
+        %i do notice with -0.5, despite jitter it converges slighty faster?
     end
 end
 end
