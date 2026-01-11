@@ -2,7 +2,7 @@ clear; clc;
 load('cs.mat');
 N = n;
 
-max_iter = 100;
+max_iter = 1000;
 L=0.5;
 tol = 1e-6;
 
@@ -19,7 +19,7 @@ iter = 0;
 for k = 1:max_iter
 
     %Polyak step
-    gamma = 1/k;
+    gamma = 15/k;
     if k <= 11
         alpha = gamma;
     else
@@ -28,7 +28,10 @@ for k = 1:max_iter
     end
     alpha
     %alpha = alphafunc(k,L);
-    xnew = xold - alpha*gfunc(xold);% Subgradient step 
+    gnormed = gfunc(xold);
+    gnormed = gnormed/sum(abs(gnormed),"all"); %L1 normed
+    %gnormed = gnormed/norm(gnormed); %L2 normed
+    xnew = xold - alpha*gnormed;% Subgradient step 
     xnew = projAx_b(xnew,A,b);  % Projection onto equality constraint
     xnew = max(real(xnew), 0);  % Projection onto nonnegativity
 
