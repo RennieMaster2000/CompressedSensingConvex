@@ -8,7 +8,7 @@ for i = 1:length(g)
     elseif x(i)<0
         g(i)=-1;
     else
-        g(i)=-0.5; 
+        g(i)=1; 
     end
 end
 end
