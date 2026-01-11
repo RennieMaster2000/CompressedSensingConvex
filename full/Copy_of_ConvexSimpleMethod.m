@@ -30,11 +30,11 @@ for k = 1:max_iter
 
     iter = k;
 
-    if fnew < fbest
+    if fnew < fbest && k>10
         fbest = fnew;
         xbest = xnew;
     end
-    if norm(xnew - xold) < tol % Stop when within tolerance
+    if norm(xnew - xold) < tol && k>10% Stop when within tolerance
         break 
     end
     
@@ -42,7 +42,7 @@ for k = 1:max_iter
 end
 %fbest = fnew;
 fbest
-xbest = xnew;
+%xbest = xnew;
 fprintf('Algorithm stopped after %d iterations\n', iter);
 
 %% Plot
