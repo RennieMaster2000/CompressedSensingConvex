@@ -4,13 +4,13 @@ N = n;
 
 max_iter = 5000;
 L=0.5; 
-tol = 1e-5; %1e-6
+tol = 1e-5;
 
 A = F_us;
 b = X_us;
 
 xold = ones(N,1)/2; %initial
-fbest = n;%ffunc(xold);
+fbest = n;
 xbest = xold;
 kbest = 0;
 
@@ -26,15 +26,12 @@ for k = 1:max_iter
     if k <= 11
         alpha = gamma;
     else
-        alpha = ffunc(xold)-fbest+gamma; % does not work due to f_best being outside constraints
-        %alpha
+        alpha = ffunc(xold)-fbest+gamma;
     end
-    alpha
-    %alpha = alphafunc(k,L);
+
     gnormed = gfunc(xold);
-    alpha = alpha/(norm(gnormed)^2);%normalising step size
-    %gnormed = gnormed/sum(abs(gnormed),"all"); %L1 normed
-    %gnormed = gnormed/norm(gnormed); %L2 normed
+    alpha = alpha/(norm(gnormed)^2); %normalising step size
+
     xnew = xold - alpha*gnormed;% Subgradient step 
     xnew = projAx_b(xnew,A,b);  % Projection onto equality constraint
     xnew = max(real(xnew), 0);  % Projection onto nonnegativity
@@ -44,26 +41,13 @@ for k = 1:max_iter
 
     iter = k;
 
-    %This is fnew <fbest code is broken/ wont work here, fbest is like 2 according to code. (Real fbest is 3 using CVX),
-    %this '2' gets achieved early on eventhough the associated reconstructed x signal is wrong. 
-    % for early k: 2 -> f slowly increase to higher value, at certain k it
-    % 'peaks' (still happens also quite early) and later on for later k it
-    % slowly goes down and converges towards 3! 
-    % -> in other words, fnew < fbest will never happen for higher k
-    % because it happens early on for k, to get correct f and x, simpely
-    % take the values at the last k iteration
-
-    %if fnew < fbest 
-    %    fbest = fnew;
-    %    xbest = xnew;
-    %end
     if fnew < fbest && k>10
         fbest = fnew;
         xbest = xnew;
         kbest = k;
     end
 
-    if norm(xnew - xold) < tol && k>10% Stop when within tolerance
+    if norm(xnew - xold) < tol && k>10 % Stop when within tolerance
         break 
     end
     
@@ -72,12 +56,10 @@ end
 cpu_time_lc = toc;
 
 f_hist = f_hist(1:iter);
-%fbest = f_hist(iter);
-%xbest = xnew;
 
 fprintf('Algorithm stopped after %d iterations\n', iter);
 
-%% Convergence plot: |f(k) - f*| % Is this correct?
+%% Convergence plot: |f(k) - f*|
 gap = abs(f_hist - fstar);
 
 figure;
