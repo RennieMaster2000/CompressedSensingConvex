@@ -1,6 +1,5 @@
 function [g] = gfunc(x)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+% gradient function g(x)
 g=zeros(size(x));
 for i = 1:length(g)
     if x(i)>0
