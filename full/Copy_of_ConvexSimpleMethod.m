@@ -29,7 +29,8 @@ for k = 1:max_iter
     alpha
     %alpha = alphafunc(k,L);
     gnormed = gfunc(xold);
-    gnormed = gnormed/sum(abs(gnormed),"all"); %L1 normed
+    alpha = alpha/(norm(gnormed)^2);%normalising step size
+    %gnormed = gnormed/sum(abs(gnormed),"all"); %L1 normed
     %gnormed = gnormed/norm(gnormed); %L2 normed
     xnew = xold - alpha*gnormed;% Subgradient step 
     xnew = projAx_b(xnew,A,b);  % Projection onto equality constraint
